@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Valentina 💖</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Comic Sans MS', cursive;
+  background: linear-gradient(180deg, #ff8fab, #ff4d6d);
+  text-align: center;
+  color: white;
+  overflow: hidden;
+  font-size: 28px;
+}
+
+.screen { display: none; padding: 15px; }
+.active { display: block; }
+
+/* TEXTO BRILLANTE */
+.glow {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-shadow: 
+    0 0 10px #fff,
+    0 0 20px pink,
+    0 0 40px hotpink,
+    0 0 80px red;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px pink; }
+  to { text-shadow: 0 0 30px white; }
+}
+
+h1 { font-size: 50px; }
+h2 { font-size: 40px; }
+
+button {
+  padding: 15px 30px;
+  font-size: 30px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 10px;
+  transition: 0.3s;
+}
+
+#btnSi { background: #ff1e56; color: white; }
+#btnNo { background: #333; color: white; }
+
+.option {
+  display: inline-block;
+  margin: 15px;
+  cursor: pointer;
+  font-size: 60px;
+}
+
+img.kitty {
+  width: 250px;
+}
+
+/* CORAZONES CAYENDO */
+.heart {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PANTALLA 1 -->
+<div class="screen active" id="screen1">
+  <h1 class="glow">Valentina 💖</h1>
+  <h2>¿Desea usted ser mi San Valentín? 💘</h2>
+  <img src="kitty1.png" class="kitty"><br><br>
+
+  <button id="btnSi" onclick="goScreen(2)">Sí 💕</button>
+  <button id="btnNo" onclick="shrinkNo()">No 😢</button>
+</div>
+
+<!-- PANTALLA 2 -->
+<div class="screen" id="screen2">
+  <h1 class="glow">Gracias por haber aceptado 💞</h1>
+  <img src="kitty2.png" class="kitty"><br>
+  <h2>¿Qué quieres que cenemos?</h2>
+
+  <div class="option" onclick="goScreen(3)">🍕 Pizza</div>
+  <div class="option" onclick="goScreen(3)">🍔 Hamburguesa</div>
+  <div class="option" onclick="goScreen(3)">🍣 Sushi</div>
+  <div class="option" onclick="goScreen(3)">🍝 Pasta</div>
+</div>
+
+<!-- PANTALLA 3 -->
+<div class="screen" id="screen3">
+  <h1 class="glow">Después de cenar 💕</h1>
+
+  <div class="option" onclick="goScreen(4)">🎬 Películas Disney</div>
+  <div class="option" onclick="goScreen(4)">🚶‍♂️ Salir a caminar</div>
+  <div class="option" onclick="goScreen(4)">🌅 Ver el atardecer</div>
+</div>
+
+<!-- FINAL -->
+<div class="screen" id="screen4">
+  <h1 class="glow">Muchas gracias por tu tiempo 💗</h1>
+  <h2>Te quiero mucho Valentina 💘</h2>
+  <img src="kitty1.png" class="kitty">
+</div>
+
+<script>
+/* BOTÓN NO SE ENCOGE Y SÍ CRECE */
+let noSize = 30;
+let siSize = 30;
+
+function shrinkNo() {
+  noSize -= 2;
+  siSize += 2;
+
+  document.getElementById("btnNo").style.fontSize = noSize + "px";
+  document.getElementById("btnSi").style.fontSize = siSize + "px";
+
+  if (noSize < 5) document.getElementById("btnNo").style.display = "none";
+}
+
+/* CAMBIO DE PANTALLA */
+function goScreen(n) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById("screen" + n).classList.add("active");
+}
+
+/* CORAZONES CAYENDO */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+  heart.style.fontSize = (20 + Math.random() * 40) + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 200);
+</script>
+
+</body>
+</html>
+
