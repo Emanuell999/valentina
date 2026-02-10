@@ -14,6 +14,7 @@ body {
   text-align: center;
   font-size: 20px;
   min-height: 100vh;
+  overflow-x: hidden; /* IMPORTANTE */
 }
 
 .screen { display: none; padding: 15px; }
@@ -63,11 +64,12 @@ img.kitty {
   width: 250px;
 }
 
-/* CORAZONES CAYENDO */
+/* CORAZONES CAYENDO (FIX MÓVIL) */
 .heart {
-  position: fixed;
+  position: absolute; /* CAMBIADO */
   top: -10px;
   font-size: 20px;
+  pointer-events: none; /* NO BLOQUEA BOTONES */
   animation: fall linear infinite;
 }
 
@@ -79,7 +81,6 @@ img.kitty {
 
 <body>
 
-<!-- PANTALLA 1 -->
 <div class="screen active" id="screen1">
   <h1 class="glow">Valentina 💖</h1>
   <h2>¿Desea usted ser mi San Valentín? 💘</h2>
@@ -89,7 +90,6 @@ img.kitty {
   <button id="btnNo" onclick="shrinkNo()">No 😢</button>
 </div>
 
-<!-- PANTALLA 2 -->
 <div class="screen" id="screen2">
   <h1 class="glow">Gracias por haber aceptado 💞</h1>
   <img src="kitty2.png" class="kitty"><br>
@@ -101,7 +101,6 @@ img.kitty {
   <div class="option" onclick="goScreen(3)">🍝 Pasta</div>
 </div>
 
-<!-- PANTALLA 3 -->
 <div class="screen" id="screen3">
   <h1 class="glow">Después de cenar 💕</h1>
 
@@ -110,7 +109,6 @@ img.kitty {
   <div class="option" onclick="goScreen(4)">🌅 Ver el atardecer</div>
 </div>
 
-<!-- FINAL -->
 <div class="screen" id="screen4">
   <h1 class="glow">Muchas gracias por tu tiempo 💗</h1>
   <h2>Te quiero mucho Valentina 💘</h2>
@@ -118,7 +116,6 @@ img.kitty {
 </div>
 
 <script>
-/* BOTÓN NO SE ENCOGE Y SÍ CRECE */
 let noSize = 30;
 let siSize = 30;
 
@@ -132,13 +129,12 @@ function shrinkNo() {
   if (noSize < 5) document.getElementById("btnNo").style.display = "none";
 }
 
-/* CAMBIO DE PANTALLA */
 function goScreen(n) {
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   document.getElementById("screen" + n).classList.add("active");
 }
 
-/* CORAZONES CAYENDO */
+/* CORAZONES */
 function createHeart() {
   const heart = document.createElement("div");
   heart.classList.add("heart");
@@ -154,6 +150,7 @@ setInterval(createHeart, 200);
 
 </body>
 </html>
+
 
 
 
